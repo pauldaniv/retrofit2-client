@@ -11,9 +11,11 @@ plugins {
   id("io.spring.dependency-management") version "1.0.8.RELEASE" apply false
 }
 
+val packagesUrl = "https://maven.pkg.github.com/pauldaniv"
+
 val githubUsr: String = findParam("gpr.usr", "USERNAME") ?: ""
-val githubKey: String? = findParam("gpr.key", "TOKEN", "GITHUB_TOKEN")
-val githubPackagesUrl = "https://maven.pkg.github.com/pauldaniv"
+val publishingKey: String? = findParam("gpr.key", "GITHUB_TOKEN")
+val packageRepoKey = findParam("TOKEN", "PACKAGES_ACCESS_TOKEN") ?: publishingKey
 
 subprojects {
   group = "com.pauldaniv.retrofit2.clients"
@@ -33,10 +35,10 @@ subprojects {
     mavenLocal()
     maven {
       name = "GitHub-Bom-Repository"
-      url = uri("$githubPackagesUrl/bom-template")
+      url = uri("$packagesUrl/bom-template")
       credentials {
         username = githubUsr
-        password = githubKey
+        password = packageRepoKey
       }
     }
   }
@@ -63,10 +65,10 @@ subprojects {
     repositories {
       maven {
         name = "GitHub-Publish-Repo"
-        url = uri("$githubPackagesUrl/${rootProject.name}")
+        url = uri("$packagesUrl/${rootProject.name}")
         credentials {
           username = githubUsr
-          password = githubKey
+          password = publishingKey
         }
       }
     }

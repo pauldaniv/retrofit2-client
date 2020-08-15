@@ -35,7 +35,6 @@ class ClientBuilder : BeanFactoryPostProcessor {
     }
   }
 
-
   @Bean
   fun beanPostProcessor(clients: ClientProperties,
                         configurableListableBeanFactory: ConfigurableListableBeanFactory

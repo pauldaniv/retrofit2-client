@@ -1,23 +1,31 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
   idea
   groovy
   `maven-publish`
   kotlin("jvm") version "1.3.50" apply false
+  kotlin("plugin.spring") version "1.3.50" apply false
+  id("org.springframework.boot") version "2.2.0.RELEASE" apply false
+  id("io.spring.dependency-management") version "1.0.8.RELEASE" apply false
 }
 
 val githubUsr: String = findParam("gpr.usr", "USERNAME") ?: ""
 val githubKey: String? = findParam("gpr.key", "TOKEN", "GITHUB_TOKEN")
+val githubPackagesUrl = "https://maven.pkg.github.com/pauldaniv"
 
 subprojects {
-  group = "com.pauldaniv.kotlin.library.template"
+  group = "com.pauldaniv.retrofit2.clients"
 
   apply(plugin = "idea")
   apply(plugin = "kotlin")
   apply(plugin = "groovy")
   apply(plugin = "maven-publish")
+  apply(plugin = "org.springframework.boot")
   apply(plugin = "org.jetbrains.kotlin.jvm")
+  apply(plugin = "io.spring.dependency-management")
+  apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 
   repositories {
     jcenter()
@@ -25,7 +33,7 @@ subprojects {
     mavenLocal()
     maven {
       name = "GitHub-Bom-Repository"
-      url = uri("https://maven.pkg.github.com/pauldaniv/bom-template")
+      url = uri("$githubPackagesUrl/bom-template")
       credentials {
         username = githubUsr
         password = githubKey
@@ -34,7 +42,9 @@ subprojects {
   }
 
   dependencies {
-    implementation(platform("com.paul:bom-template:0.0.+"))
+//    implementation(platform("com.paul:bom-template:0.0.+"))
+    implementation("org.springframework.boot:spring-boot-starter")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     implementation("com.asprise.ocr:java-ocr-api:15.3.0.3")
     implementation("com.google.guava:guava:29.0-jre")
     testImplementation("org.assertj:assertj-core")
@@ -53,7 +63,7 @@ subprojects {
     repositories {
       maven {
         name = "GitHub-Publish-Repo"
-        url = uri("https://maven.pkg.github.com/pauldaniv/${rootProject.name}")
+        url = uri("$githubPackagesUrl/${rootProject.name}")
         credentials {
           username = githubUsr
           password = githubKey
@@ -67,6 +77,14 @@ subprojects {
         artifact(sourcesJar)
       }
     }
+  }
+
+  tasks.getByName<BootJar>("bootJar") {
+    enabled = false
+
+  }
+  tasks.getByName<Jar>("jar") {
+    enabled = true
   }
 
   idea {

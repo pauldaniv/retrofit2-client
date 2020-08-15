@@ -1,3 +1,3 @@
-rootProject.name = "kotlin-library-template"
+rootProject.name = "retrofit2-clients"
 
-include("first", "second")
+include("clients")

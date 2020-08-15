@@ -22,7 +22,8 @@ class ClientBuilder : BeanFactoryPostProcessor {
 
   @Suppress("UNCHECKED_CAST")
   override fun postProcessBeanFactory(factory: ConfigurableListableBeanFactory) {
-    val typesAnnotatedWith = Reflections("<package> to be configured :D ").getTypesAnnotatedWith(Client::class.java)
+    //<package> to be configured :D
+    val typesAnnotatedWith = Reflections("com").getTypesAnnotatedWith(Client::class.java)
     typesAnnotatedWith.forEach {
       val registry = factory as BeanDefinitionRegistry
       clientNames.add(it.simpleName.decapitalize())

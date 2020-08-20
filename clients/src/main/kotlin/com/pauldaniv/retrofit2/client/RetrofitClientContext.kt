@@ -1,4 +1,4 @@
-package com.pauldaniv.retrofit2.clients
+package com.pauldaniv.retrofit2.client
 
 import org.springframework.cloud.context.named.NamedContextFactory
 

@@ -1,4 +1,4 @@
-package com.pauldaniv.retrofit2.clients
+package com.pauldaniv.retrofit2.client
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

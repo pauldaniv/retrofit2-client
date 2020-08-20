@@ -1,4 +1,4 @@
-package com.pauldaniv.retrofit2.clients
+package com.pauldaniv.retrofit2.client
 
 
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition
@@ -28,13 +28,12 @@ class RetrofitClientsRegistrar : ImportBeanDefinitionRegistrar {
     val configurationAttributes = metadata.getAnnotationAttributes(EnableRetrofitClients::class.java.canonicalName)
 
 
-    var strings = mutableListOf(ClassUtils.getPackageName(metadata.className))
+    val findCandidateComponents = mutableListOf(ClassUtils.getPackageName(metadata.className))
     val basePackgase = configurationAttributes?.get("basePackages") as Array<String>?
 
     if (basePackgase != null) {
-      strings.addAll(basePackgase)
+      findCandidateComponents.addAll(basePackgase)
     }
-    val findCandidateComponents = strings
 
     findCandidateComponents
         .flatMap { scanner.findCandidateComponents(it) }

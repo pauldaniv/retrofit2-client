@@ -1,4 +1,4 @@
-package com.pauldaniv.retrofit2.clients
+package com.pauldaniv.retrofit2.client
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -8,6 +8,8 @@ import java.util.*
 
 @Configuration
 @EnableConfigurationProperties(ClientProperties::class)
+@Import(RetrofitClientsRegistrar::class)
+@EnableRetrofitClients(basePackages = ["com.paul", "com.pauldaniv"])
 class RetrofitAutoconfiguration {
   @Bean
   fun retrofitContext(specs: Optional<List<RetrofitClientSpecification?>?>): RetrofitClientContext {

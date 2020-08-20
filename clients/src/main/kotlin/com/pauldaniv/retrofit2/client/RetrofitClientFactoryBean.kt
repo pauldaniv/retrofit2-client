@@ -1,4 +1,4 @@
-package com.pauldaniv.retrofit2.clients
+package com.pauldaniv.retrofit2.client
 
 import okhttp3.OkHttpClient
 import org.springframework.beans.factory.FactoryBean

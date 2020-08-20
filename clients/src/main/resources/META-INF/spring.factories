@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.pauldaniv.retrofit2.clients.RetrofitAutoconfiguration,\
-  com.pauldaniv.retrofit2.clients.RetrofitClientsRegistrar
+  com.pauldaniv.retrofit2.client.RetrofitAutoconfiguration
 

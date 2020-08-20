@@ -1,11 +1,10 @@
-package com.pauldaniv.test.clients
+package com.pauldaniv.retrofit2.clients
 
 import okhttp3.OkHttpClient
 import org.springframework.beans.factory.FactoryBean
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
-import org.springframework.stereotype.Component
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit

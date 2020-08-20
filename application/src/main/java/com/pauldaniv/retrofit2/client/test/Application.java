@@ -1,8 +1,8 @@
-package com.pauldaniv.test.client.test;
+package com.pauldaniv.retrofit2.client.test;
 
-import com.pauldaniv.test.clients.ClientProperties;
+import com.pauldaniv.retrofit2.clients.ClientProperties;
 //import com.pauldaniv.test.clients.EnableRetrofitClients;
-import com.pauldaniv.test.clients.RetrofitClient;
+import com.pauldaniv.retrofit2.clients.RetrofitClient;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

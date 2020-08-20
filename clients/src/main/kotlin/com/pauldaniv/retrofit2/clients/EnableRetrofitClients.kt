@@ -1,7 +1,4 @@
-package com.pauldaniv.test.clients
-
-import org.springframework.context.annotation.Import
-import kotlin.reflect.KClass
+package com.pauldaniv.retrofit2.clients
 
 
 /**

@@ -1,4 +1,4 @@
-package com.pauldaniv.test.clients
+package com.pauldaniv.retrofit2.clients
 
 import retrofit2.CallAdapter
 import retrofit2.Retrofit

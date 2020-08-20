@@ -1,4 +1,4 @@
-package com.pauldaniv.test.clients
+package com.pauldaniv.retrofit2.clients
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean

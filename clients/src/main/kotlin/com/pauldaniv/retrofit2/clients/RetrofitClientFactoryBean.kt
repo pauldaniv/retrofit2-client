@@ -33,8 +33,7 @@ class RetrofitClientFactoryBean : FactoryBean<Any>, ApplicationContextAware, Ini
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(JacksonConverterFactory.create())
 
-    val okHttpClient = Optional
-        .ofNullable(
+    val okHttpClient = Optional.ofNullable(
             retrofitClientContext.getInstance(name, OkHttpClient::class.java))
         .orElse(createHttpClient())
     retrofitBuilder.client(okHttpClient)

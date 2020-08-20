@@ -33,7 +33,7 @@ public class Application {
         }
     }
 
-    @RetrofitClient
+    @RetrofitClient(name = "myTestClient")
     public interface TestClient {
         @GET("/tags")
         Object test();

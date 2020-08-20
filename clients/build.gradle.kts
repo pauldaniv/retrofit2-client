@@ -1,4 +1,4 @@
-version = "1.2-SNAPSHOT"
+version = "1.0-SNAPSHOT"
 
 dependencies {
   api("com.squareup.retrofit2:retrofit:2.9.0")

@@ -8,7 +8,6 @@ import java.util.*
 
 @Configuration
 @EnableConfigurationProperties(ClientProperties::class)
-@Import(RetrofitClientsRegistrar::class)
 class RetrofitAutoconfiguration {
   @Bean
   fun retrofitContext(specs: Optional<List<RetrofitClientSpecification?>?>): RetrofitClientContext {

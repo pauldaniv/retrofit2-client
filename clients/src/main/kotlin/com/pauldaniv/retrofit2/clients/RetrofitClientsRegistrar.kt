@@ -24,8 +24,20 @@ class RetrofitClientsRegistrar : ImportBeanDefinitionRegistrar {
       }
     }
     scanner.addIncludeFilter(AnnotationTypeFilter(RetrofitClient::class.java))
-    val findCandidateComponents = scanner.findCandidateComponents(ClassUtils.getPackageName(metadata.className))
+
+    val configurationAttributes = metadata.getAnnotationAttributes(EnableRetrofitClients::class.java.canonicalName)
+
+
+    var strings = mutableListOf(ClassUtils.getPackageName(metadata.className))
+    val basePackgase = configurationAttributes?.get("basePackages") as Array<String>?
+
+    if (basePackgase != null) {
+      strings.addAll(basePackgase)
+    }
+    val findCandidateComponents = strings
+
     findCandidateComponents
+        .flatMap { scanner.findCandidateComponents(it) }
         .forEach { candidateComponent: BeanDefinition? ->
           val beanDefinition = candidateComponent as AnnotatedBeanDefinition
           val attributes = beanDefinition.metadata.getAnnotationAttributes(RetrofitClient::class.java.canonicalName)
@@ -34,7 +46,7 @@ class RetrofitClientsRegistrar : ImportBeanDefinitionRegistrar {
               .genericBeanDefinition(RetrofitClientFactoryBean::class.java)
 
           val beanClassName = beanDefinition.beanClassName
-          val beanName = beanClassName!!.substringAfter("$").decapitalize()
+          val beanName = beanClassName!!.substringAfterLast(".").substringAfterLast("$").decapitalize()
           val clientName = if (attributes?.get("name") != "") attributes?.get("name") as String else beanName
           retrofitClientFactoryBeanBuilder.addPropertyValue("name", clientName)
           retrofitClientFactoryBeanBuilder.addPropertyValue("type", beanClassName)

@@ -2,3 +2,6 @@ retrofit.services:
   myTestClient:
     url: http://localhost:4202
     writeTimeout: 50
+  myRestApi:
+    url: http://localhost:4202
+    writeTimeout: 50

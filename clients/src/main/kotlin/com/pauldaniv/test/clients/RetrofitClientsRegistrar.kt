@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition
 import org.springframework.beans.factory.config.BeanDefinition
 import org.springframework.beans.factory.support.BeanDefinitionBuilder
 import org.springframework.beans.factory.support.BeanDefinitionRegistry
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider
+import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar
 import org.springframework.core.type.AnnotationMetadata
 import org.springframework.core.type.filter.AnnotationTypeFilter
@@ -13,8 +16,7 @@ import org.springframework.util.ClassUtils
 
 class RetrofitClientsRegistrar : ImportBeanDefinitionRegistrar {
 
-  override fun registerBeanDefinitions(metadata: AnnotationMetadata,
-                                       registry: BeanDefinitionRegistry) {
+  override fun registerBeanDefinitions(metadata: AnnotationMetadata, registry: BeanDefinitionRegistry) {
 
     val scanner: ClassPathScanningCandidateComponentProvider = object : ClassPathScanningCandidateComponentProvider(
         false) {
@@ -25,7 +27,8 @@ class RetrofitClientsRegistrar : ImportBeanDefinitionRegistrar {
       }
     }
     scanner.addIncludeFilter(AnnotationTypeFilter(RetrofitClient::class.java))
-    scanner.findCandidateComponents(ClassUtils.getPackageName(metadata.className))
+    val findCandidateComponents = scanner.findCandidateComponents(ClassUtils.getPackageName(metadata.className))
+    findCandidateComponents
         .forEach { candidateComponent: BeanDefinition? ->
           val beanDefinition = candidateComponent as AnnotatedBeanDefinition
           val attributes = beanDefinition.metadata.getAnnotationAttributes(RetrofitClient::class.java.canonicalName)

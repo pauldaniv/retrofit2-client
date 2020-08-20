@@ -12,8 +12,8 @@ import kotlin.reflect.KClass
  * @author Dave Syer
  * @since 1.0
  */
-@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.CLASS)
-@MustBeDocumented
-@Import(RetrofitClientsRegistrar::class)
-annotation class EnableRetrofitClients
+//@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+//@Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.CLASS)
+//@MustBeDocumented
+//@Import(RetrofitClientsRegistrar::class)
+//annotation class EnableRetrofitClients

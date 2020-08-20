@@ -1,22 +1,17 @@
 package com.pauldaniv.test.client.test;
 
 import com.pauldaniv.test.clients.ClientProperties;
-import com.pauldaniv.test.clients.EnableRetrofitClients;
+//import com.pauldaniv.test.clients.EnableRetrofitClients;
 import com.pauldaniv.test.clients.RetrofitClient;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
-
-@EnableConfigurationProperties
-@EnableRetrofitClients
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {

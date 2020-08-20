@@ -8,7 +8,8 @@ plugins {
   kotlin("jvm") version "1.3.50" apply false
   kotlin("plugin.spring") version "1.3.50" apply false
   id("org.springframework.boot") version "2.2.0.RELEASE" apply false
-  id("io.spring.dependency-management") version "1.0.8.RELEASE" apply false
+  id("io.spring.dependency-management") version "1.0.9.RELEASE" apply false
+  id("io.freefair.lombok") version "5.1.1" apply false
 }
 
 val packagesUrl = "https://maven.pkg.github.com/pauldaniv"
@@ -28,6 +29,7 @@ subprojects {
   apply(plugin = "org.jetbrains.kotlin.jvm")
   apply(plugin = "io.spring.dependency-management")
   apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+  apply(plugin = "io.freefair.lombok")
 
   repositories {
     jcenter()
@@ -46,7 +48,9 @@ subprojects {
   dependencies {
 //    implementation(platform("com.paul:bom-template:0.0.+"))
     implementation("org.springframework.boot:spring-boot-starter")
+
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
     implementation("com.asprise.ocr:java-ocr-api:15.3.0.3")
     implementation("com.google.guava:guava:29.0-jre")
     testImplementation("org.assertj:assertj-core")

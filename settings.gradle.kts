@@ -1,3 +1,3 @@
 rootProject.name = "retrofit2-clients"
 
-include("clients")
+include("clients", "application")

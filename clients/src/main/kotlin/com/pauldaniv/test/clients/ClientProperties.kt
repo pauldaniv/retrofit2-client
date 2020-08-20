@@ -1,10 +1,10 @@
-package com.pauldaniv.retrofit2.clients
+package com.pauldaniv.test.clients
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
-@ConfigurationProperties("app")
-data class ClientProperties(val apis: Map<String, ApiProperties>) {
+@ConfigurationProperties("retrofit")
+data class ClientProperties(val services: Map<String, ApiProperties>) {
   data class ApiProperties(val url: String, val writeTimeout: Long?, val readTimeout: Long?)
 }

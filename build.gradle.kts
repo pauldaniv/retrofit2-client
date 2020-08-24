@@ -19,7 +19,7 @@ val publishingKey: String? = findParam("gpr.key", "GITHUB_TOKEN")
 val packageRepoKey = findParam("TOKEN", "PACKAGES_ACCESS_TOKEN") ?: publishingKey
 
 subprojects {
-  group = "com.pauldaniv.retrofit2.clients"
+  group = "com.pauldaniv.retrofit2.client"
 
   apply(plugin = "idea")
   apply(plugin = "kotlin")

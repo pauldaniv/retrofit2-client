@@ -5,10 +5,10 @@ plugins {
   idea
   groovy
   `maven-publish`
-  kotlin("jvm") version "1.3.50" apply false
-  kotlin("plugin.spring") version "1.3.50" apply false
-  id("org.springframework.boot") version "2.2.0.RELEASE" apply false
-  id("io.spring.dependency-management") version "1.0.9.RELEASE" apply false
+  kotlin("jvm") version "1.3.72" apply false
+  kotlin("plugin.spring") version "1.3.72" apply false
+  id("org.springframework.boot") version "2.3.3.RELEASE" apply false
+  id("io.spring.dependency-management") version "1.0.10.RELEASE" apply false
   id("io.freefair.lombok") version "5.1.1" apply false
 }
 

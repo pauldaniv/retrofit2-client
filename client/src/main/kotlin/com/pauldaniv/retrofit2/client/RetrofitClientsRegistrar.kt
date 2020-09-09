@@ -1,6 +1,5 @@
 package com.pauldaniv.retrofit2.client
 
-
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition
 import org.springframework.beans.factory.config.BeanDefinition
 import org.springframework.beans.factory.support.BeanDefinitionBuilder
@@ -39,15 +38,18 @@ class RetrofitClientsRegistrar : ImportBeanDefinitionRegistrar {
         .flatMap { scanner.findCandidateComponents(it) }
         .forEach { candidateComponent: BeanDefinition? ->
           val beanDefinition = candidateComponent as AnnotatedBeanDefinition
-          val attributes = beanDefinition.metadata.getAnnotationAttributes(RetrofitClient::class.java.canonicalName)
+          val attributes = beanDefinition.metadata.getAnnotationAttributes(RetrofitClient::class.java.canonicalName)!!
 
           val retrofitClientFactoryBeanBuilder = BeanDefinitionBuilder
               .genericBeanDefinition(RetrofitClientFactoryBean::class.java)
 
           val beanClassName = beanDefinition.beanClassName
           val beanName = beanClassName!!.substringAfterLast(".").substringAfterLast("$").decapitalize()
-          val clientName = if (attributes?.get("name") != "") attributes?.get("name") as String else beanName
+          val clientName = if (attributes["name"] != "") {
+            attributes["name"] as String
+          } else beanName
           retrofitClientFactoryBeanBuilder.addPropertyValue("name", clientName)
+          retrofitClientFactoryBeanBuilder.addPropertyValue("value", attributes["value"])
           retrofitClientFactoryBeanBuilder.addPropertyValue("type", beanClassName)
           retrofitClientFactoryBeanBuilder.setLazyInit(true)
 

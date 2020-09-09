@@ -3,5 +3,5 @@ retrofit.services:
     url: http://localhost:4202
     writeTimeout: 50
   myRestApi:
-    url: http://localhost:4202
+    url: http://localhost:8080
     writeTimeout: 50

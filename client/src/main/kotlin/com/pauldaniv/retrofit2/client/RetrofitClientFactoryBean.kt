@@ -38,17 +38,19 @@ class RetrofitClientFactoryBean : FactoryBean<Any>, ApplicationContextAware, Ini
     }
 
     if (value.isNotBlank()) {
-      val methods = type.methods.filter { m -> supportedHttpAnnotations().any { m.isAnnotationPresent(it) } }
-      val handlers = methods.flatMap { it.declaredAnnotations.asIterable() }.map { Proxy.getInvocationHandler(it) }
-      handlers.forEach { handler ->
-        handler::class.java.declaredFields
-            .filter { it.name == "memberValues" }
-            .onEach { it.isAccessible = true }
-            .map { it.get(handler) as MutableMap<String, String> }
-            .forEach {
-              it["value"] = "$value${it["value"]}"
-            }
-      }
+      type.methods
+          .filter { m -> supportedHttpAnnotations().any { m.isAnnotationPresent(it) } }
+          .flatMap { it.declaredAnnotations.asIterable() }
+          .map { Proxy.getInvocationHandler(it) }
+          .forEach { handler ->
+            handler::class.java.declaredFields
+                .filter { it.name == "memberValues" }
+                .onEach { it.isAccessible = true }
+                .map { it.get(handler) as MutableMap<String, String> }
+                .forEach {
+                  it["value"] = "$value${it["value"]}"
+                }
+          }
     }
     return retrofitBuilder.build().create(type)
   }

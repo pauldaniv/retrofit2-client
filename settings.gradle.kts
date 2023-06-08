@@ -1,3 +1,3 @@
 rootProject.name = "retrofit2-client"
 
-include("client", "application")
+include("retrofit2-spring-boot-starter", "application")

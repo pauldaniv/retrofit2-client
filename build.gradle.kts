@@ -3,13 +3,12 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
   idea
-  groovy
+  java
   `maven-publish`
-  kotlin("jvm") version "1.3.72" apply false
-  kotlin("plugin.spring") version "1.3.72" apply false
-  id("org.springframework.boot") version "2.3.3.RELEASE" apply false
-  id("io.spring.dependency-management") version "1.0.10.RELEASE" apply false
-  id("io.freefair.lombok") version "5.1.1" apply false
+  id("org.springframework.boot") version "3.1.0" apply false
+  id("io.spring.dependency-management") version "1.1.0" apply false
+  kotlin("jvm") version "1.8.21" apply false
+  kotlin("plugin.spring") version "1.8.21" apply false
 }
 
 val packagesUrl = "https://maven.pkg.github.com/pauldaniv"
@@ -19,20 +18,25 @@ val publishKey: String? = findParam("gpr.key", "GITHUB_TOKEN")
 val packageKey = findParam("TOKEN", "PACKAGES_ACCESS_TOKEN") ?: publishKey
 
 subprojects {
-  group = "com.pauldaniv.retrofit2"
+  group = "com.pauldaniv.retrofit"
 
   apply(plugin = "idea")
+  apply(plugin = "java")
   apply(plugin = "kotlin")
-  apply(plugin = "groovy")
   apply(plugin = "maven-publish")
   apply(plugin = "org.springframework.boot")
   apply(plugin = "org.jetbrains.kotlin.jvm")
   apply(plugin = "io.spring.dependency-management")
   apply(plugin = "org.jetbrains.kotlin.plugin.spring")
-  apply(plugin = "io.freefair.lombok")
+
+  java.sourceCompatibility = JavaVersion.VERSION_17
+  configurations {
+    compileOnly {
+      extendsFrom(configurations.annotationProcessor.get())
+    }
+  }
 
   repositories {
-    jcenter()
     mavenCentral()
     mavenLocal()
     repoForName(
@@ -50,15 +54,10 @@ subprojects {
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
     implementation("com.google.guava:guava:29.0-jre")
     testImplementation("org.assertj:assertj-core")
-    implementation("org.codehaus.groovy:groovy:2.5.6")
-
-    implementation(kotlin("stdlib-jdk8"))
-    implementation(kotlin("reflect"))
-  }
-
-  val sourcesJar by tasks.creating(Jar::class) {
-    archiveClassifier.set("sources")
-    from(sourceSets["main"].allSource)
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
   }
 
   publishing {
@@ -73,8 +72,13 @@ subprojects {
       }
     }
 
+    val sourcesJar by tasks.creating(Jar::class) {
+      archiveClassifier.set("sources")
+      from(sourceSets["main"].allSource)
+    }
+
     publications {
-      register<MavenPublication>("gpr") {
+      create<MavenPublication>("maven") {
         from(components["java"])
         artifact(sourcesJar)
       }
@@ -101,20 +105,15 @@ subprojects {
     }
   }
 
-  tasks.withType<JavaCompile> {
-    sourceCompatibility = "1.8"
-    targetCompatibility = "1.8"
-  }
-
   tasks.withType<KotlinCompile> {
     kotlinOptions {
       freeCompilerArgs = listOf("-Xjsr305=strict")
-      jvmTarget = "1.8"
+      jvmTarget = "17"
     }
   }
-  configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-  }
+
+
+
   tasks.withType<Test> {
     useJUnitPlatform()
   }

@@ -6,5 +6,5 @@ import retrofit2.http.GET;
 @RetrofitClient(name = "myTestClient")
 public interface TestClient {
     @GET("/tags")
-    Object test();
+    DummyModel test();
 }
